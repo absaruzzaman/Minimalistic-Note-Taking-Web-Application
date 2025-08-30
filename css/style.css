@@ -1,7 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
 body { font-family: Arial, sans-serif; margin: 20px; }
 input, textarea, select, button { margin: 5px 0; padding: 5px; width: 300px; }
 button { width: 150px; cursor: pointer; }
 a { margin-right: 10px; }
 hr { margin: 15px 0; }
 form { margin-bottom: 20px; }
-h2 { color: #333; }
+h2 { color: hsl(0, 100%, 35%); }
+
