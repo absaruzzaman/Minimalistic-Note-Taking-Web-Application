@@ -35,6 +35,7 @@ if (isset($_POST['update'])) {
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Edit Note</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
   <style>.gradient-bg{background:linear-gradient(180deg,#00b7ffff 0%,#5c3079ff 100%);min-height:100vh;display:flex;align-items:center;justify-content:center}</style>
 </head>
 <body class="gradient-bg">

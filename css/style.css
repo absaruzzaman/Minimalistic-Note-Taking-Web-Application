@@ -1,15 +1,127 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+/* --- Base Fonts & Colors --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff; /* Notion white */
+    color: #111111;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-body { font-family: Arial, sans-serif; margin: 20px; }
-input, textarea, select, button { margin: 5px 0; padding: 5px; width: 300px; }
-button { width: 150px; cursor: pointer; }
-a { margin-right: 10px; }
-hr { margin: 15px 0; }
-form { margin-bottom: 20px; }
-h2 { color: hsl(0, 100%, 35%); }
+/* Dark Mode */
+body.dark {
+    background-color: #1f1f1f;
+    color: #eaeaea;
+}
 
+/* --- Links --- */
+a {
+    color: #111111;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover {
+    color: #4f46e5; /* subtle indigo hover like Notion */
+}
+
+/* --- Headers --- */
+h1, h2, h3, h4 {
+    font-weight: 600;
+    color: inherit;
+}
+
+/* --- Cards (Notes) --- */
+.note-card {
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.note-card:hover {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+}
+
+/* Dark mode for cards */
+body.dark .note-card {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+}
+
+/* --- Inputs & Textareas --- */
+input, textarea, select {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    color: #111111;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Dark mode inputs */
+body.dark input, 
+body.dark textarea, 
+body.dark select {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #eaeaea;
+}
+
+/* --- Buttons --- */
+button {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+button:hover {
+    transform: translateY(-1px);
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: #4f46e5;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #3730a3;
+}
+
+/* Secondary / Danger Button */
+.btn-danger {
+    background-color: #ef4444;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+/* --- Profile Image --- */
+.profile-img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e0e0e0;
+    transition: transform 0.3s;
+}
+.profile-img:hover {
+    transform: scale(1.1);
+}
+
+/* Dark mode profile border */
+body.dark .profile-img {
+    border-color: #3a3a3a;
+}
+
+/* --- Utility Classes --- */
+.text-muted { color: #6b7280; }
+.text-muted-dark { color: #9ca3af; }
+
+/* Rounded containers */
+.rounded-xl { border-radius: 12px; }

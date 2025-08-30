@@ -18,6 +18,8 @@ $user = $stmt->get_result()->fetch_assoc();
 <title>Profile</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config = { darkMode: 'class' }</script>
+<link rel="stylesheet" href="css/style.css">
+
 <style>
 html { transition: background-color 0.3s, color 0.3s; }
 </style>

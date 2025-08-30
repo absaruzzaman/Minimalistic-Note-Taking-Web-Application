@@ -49,6 +49,7 @@ $notes = $stmt->get_result();
 <script>
   tailwind.config = { darkMode: 'class' }
 </script>
+<link rel="stylesheet" href="css/style.css">
 <style>
   html { transition: background-color 0.3s, color 0.3s; }
 </style>
