@@ -22,6 +22,7 @@ A simple PHP-MySQL note-taking application with user authentication, profile man
 2. Import `database.sql` to MySQL.
 3. Update `db.php` with your database credentials.
 4. Run the project on a local server (XAMPP, MAMP, etc).
+5. run http://localhost/note_app/login.php
 
 ## File Structure
 - `/uploads/` – stores user profile pictures  
