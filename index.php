@@ -4,7 +4,14 @@ include('db.php');
 if(!isset($_SESSION['user_id'])){ header("Location: login.php"); exit; }
 
 $user_id = $_SESSION['user_id'];
-$username = $_SESSION['username'] ?? 'User';
+
+$stmt = $conn->prepare("SELECT username, full_name FROM users WHERE id=?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$user = $stmt->get_result()->fetch_assoc();
+
+$displayName = $user['full_name'] ?: $user['username']; // use full_name if exists, otherwise username
+
 
 $category = isset($_GET['category']) ? trim($_GET['category']) : "";
 $q = isset($_GET['q']) ? trim($_GET['q']) : "";
@@ -65,7 +72,7 @@ $notes = $stmt->get_result();
 
 <main class="max-w-5xl mx-auto px-4 py-6">
   <div class="flex flex-col sm:flex-row sm:items-center gap-3 justify-between mb-4">
-    <h2 class="text-xl font-semibold">Welcome, <?= htmlspecialchars($username) ?></h2>
+    <h2 class="text-xl font-semibold">Welcome, <?= htmlspecialchars($displayName) ?></h2>
     <a href="add_note.php" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-md transition transform hover:-translate-y-0.5">
       + New Note
     </a>

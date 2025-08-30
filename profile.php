@@ -48,8 +48,10 @@ html { transition: background-color 0.3s, color 0.3s; }
             <img id="profile-preview" src="uploads/<?= htmlspecialchars($user['profile_pic']) ?>" 
                  alt="Profile Picture" 
                  class="w-full h-full rounded-full object-cover border-2 border-gray-300 dark:border-gray-600 shadow-md transition-transform duration-300 hover:scale-110 cursor-pointer">
-            <button type="submit" name="remove_pic" formaction="remove_pic.php" 
-              class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 text-xs">✕</button>
+            <button type="submit" name="remove_pic"
+    class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600 text-xs">
+    ✕
+</button>
         <?php else: ?>
             <div class="w-full h-full rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500">
               No Image
