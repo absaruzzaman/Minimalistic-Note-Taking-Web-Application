@@ -93,49 +93,56 @@ $notes = $stmt->get_result();
     <?php endif; ?>
 
     <?php while($n = $notes->fetch_assoc()): ?>
-      <article class="bg-white/90 dark:bg-gray-800/80 rounded-2xl shadow p-5 flex flex-col transform transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg">
-        <div class="flex items-start justify-between gap-2">
-          <h3 class="text-lg font-semibold"><?= htmlspecialchars($n['title']) ?></h3>
-          <?php if(!empty($n['category'])): ?>
-            <span class="text-xs px-2 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-700 dark:text-indigo-100"><?= htmlspecialchars($n['category']) ?></span>
-          <?php endif; ?>
-        </div>
-        <p class="mt-2 line-clamp-4"><?= nl2br(htmlspecialchars($n['content'])) ?></p>
-        <div class="mt-4 text-xs text-gray-500 dark:text-gray-400">
-          Created: <?= htmlspecialchars($n['created_at']) ?><?php if($n['updated_at'] && $n['updated_at'] !== $n['created_at']): ?> • Updated: <?= htmlspecialchars($n['updated_at']) ?><?php endif; ?>
-        </div>
+  <article class="relative <?= ($n['status']==='pinned') ? 'border-2 border-yellow-400 dark:border-yellow-500' : '' ?> 
+                        bg-white/90 dark:bg-gray-800/80 rounded-2xl shadow p-5 flex flex-col transform transition-transform duration-200 hover:scale-[1.02] hover:shadow-lg">
+    
+    <?php if($n['status']==='pinned'): ?>
+      <span class="absolute top-2 right-2 text-xs font-bold px-2 py-1 rounded-full bg-yellow-300 dark:bg-yellow-500 text-gray-800 dark:text-gray-900">PINNED</span>
+    <?php endif; ?>
+    
+    <div class="flex items-start justify-between gap-2">
+      <h3 class="text-lg font-semibold"><?= htmlspecialchars($n['title']) ?></h3>
+      <?php if(!empty($n['category'])): ?>
+        <span class="text-xs px-2 py-1 rounded-full bg-indigo-100 dark:bg-indigo-700 text-indigo-700 dark:text-indigo-100"><?= htmlspecialchars($n['category']) ?></span>
+      <?php endif; ?>
+    </div>
+    <p class="mt-2 line-clamp-4"><?= nl2br(htmlspecialchars($n['content'])) ?></p>
+    <div class="mt-4 text-xs text-gray-500 dark:text-gray-400">
+      Created: <?= htmlspecialchars($n['created_at']) ?><?php if($n['updated_at'] && $n['updated_at'] !== $n['created_at']): ?> • Updated: <?= htmlspecialchars($n['updated_at']) ?><?php endif; ?>
+    </div>
 
-        <!-- Status Buttons -->
-        <div class="mt-4 flex flex-wrap gap-2">
-          <!-- Pin / Unpin -->
-          <a href="update_status.php?id=<?= (int)$n['id'] ?>&status=<?= ($n['status']==='pinned') ? 'active' : 'pinned' ?>"
-             class="px-2 py-1 rounded-lg text-xs font-medium transition
-                    <?= ($n['status']==='pinned') ? 'bg-yellow-300 dark:bg-yellow-500 text-gray-800 dark:text-gray-100' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600' ?>">
-            <?= ($n['status']==='pinned') ? 'Unpin' : 'Pin' ?>
-          </a>
+    <!-- Status Buttons -->
+    <div class="mt-4 flex flex-wrap gap-2">
+      <!-- Pin / Unpin -->
+      <a href="update_status.php?id=<?= (int)$n['id'] ?>&status=<?= ($n['status']==='pinned') ? 'active' : 'pinned' ?>"
+         class="px-2 py-1 rounded-lg text-xs font-medium transition
+                <?= ($n['status']==='pinned') ? 'bg-yellow-300 dark:bg-yellow-500 text-gray-800 dark:text-gray-100' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600' ?>">
+        <?= ($n['status']==='pinned') ? 'Unpin' : 'Pin' ?>
+      </a>
 
-          <!-- Archive -->
-          <?php if($n['status']!=='archived'): ?>
-            <a href="update_status.php?id=<?= (int)$n['id'] ?>&status=archived"
-               class="px-2 py-1 rounded-lg text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-              Archive
-            </a>
-          <?php else: ?>
-            <a href="update_status.php?id=<?= (int)$n['id'] ?>&status=active"
-               class="px-2 py-1 rounded-lg text-xs font-medium bg-green-200 dark:bg-green-600 text-gray-800 dark:text-gray-100 hover:bg-green-300 dark:hover:bg-green-500 transition">
-              Restore
-            </a>
-          <?php endif; ?>
-        </div>
+      <!-- Archive / Restore -->
+      <?php if($n['status']!=='archived'): ?>
+        <a href="update_status.php?id=<?= (int)$n['id'] ?>&status=archived"
+           class="px-2 py-1 rounded-lg text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+          Archive
+        </a>
+      <?php else: ?>
+        <a href="update_status.php?id=<?= (int)$n['id'] ?>&status=active"
+           class="px-2 py-1 rounded-lg text-xs font-medium bg-green-200 dark:bg-green-600 text-gray-800 dark:text-gray-100 hover:bg-green-300 dark:hover:bg-green-500 transition">
+          Restore
+        </a>
+      <?php endif; ?>
+    </div>
 
-        <!-- Edit/Delete Buttons -->
-        <div class="mt-4 flex items-center gap-2">
-          <a href="edit_note.php?id=<?= (int)$n['id'] ?>" class="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition transform hover:-translate-y-0.5">Edit</a>
-          <a href="delete_note.php?id=<?= (int)$n['id'] ?>" onclick="return confirm('Delete this note?')" class="flex-1 text-center px-3 py-2 rounded-lg bg-red-500 dark:bg-red-600 text-white hover:bg-red-600 dark:hover:bg-red-700 transition transform hover:-translate-y-0.5">Delete</a>
-        </div>
+    <!-- Edit/Delete Buttons -->
+    <div class="mt-4 flex items-center gap-2">
+      <a href="edit_note.php?id=<?= (int)$n['id'] ?>" class="flex-1 text-center px-3 py-2 rounded-lg bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 transition transform hover:-translate-y-0.5">Edit</a>
+      <a href="delete_note.php?id=<?= (int)$n['id'] ?>" onclick="return confirm('Delete this note?')" class="flex-1 text-center px-3 py-2 rounded-lg bg-red-500 dark:bg-red-600 text-white hover:bg-red-600 dark:hover:bg-red-700 transition transform hover:-translate-y-0.5">Delete</a>
+    </div>
 
-      </article>
-    <?php endwhile; ?>
+  </article>
+<?php endwhile; ?>
+
   </section>
 </main>
 
